@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">UniqueCreationPerfume</string>
+    <string name="fragrance_concentration">Fragrance Concentration: </string>
+    <string name="note_concentration">Note Concentration</string>
+</resources>

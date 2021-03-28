@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "568920791649",
+    "project_id": "custom-perfume",
+    "storage_bucket": "custom-perfume.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:568920791649:android:18d1f0ac31f41f14242820",
+        "android_client_info": {
+          "package_name": "com.app.ucp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "568920791649-7kigrougn3jepd9uqq2l4ibh1e9njef4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.ucp",
+            "certificate_hash": "51247baa05eff6421afb67f99b356fa2ad164748"
+          }
+        },
+        {
+          "client_id": "568920791649-g9pfhljj38kqudo1gtqn5snos6hq1s47.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsc5XNBH083PNYZKdwTHLiQMlJQX5FOiU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "568920791649-g9pfhljj38kqudo1gtqn5snos6hq1s47.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

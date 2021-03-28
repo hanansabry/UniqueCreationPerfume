@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".presentation.newbie.NewBieActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_transparent">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="16dp"
+            android:background="@null"
+            android:src="@drawable/ic_back_accent_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="List of Orders"
+            android:textSize="24sp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/libre_baskerville"
+            android:textColor="@color/colorAccent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/requestsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="32dp"
+            tools:listitem="@layout/request_item"/>
+
+
+    </LinearLayout>
+
+</ScrollView>
