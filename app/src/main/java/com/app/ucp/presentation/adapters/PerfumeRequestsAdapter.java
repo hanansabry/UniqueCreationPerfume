@@ -9,6 +9,7 @@ import com.app.ucp.R;
 import com.app.ucp.model.PerfumeRequest;
 
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,7 +42,7 @@ public class PerfumeRequestsAdapter extends RecyclerView.Adapter<PerfumeRequests
         PerfumeRequest perfumeRequest = perfumeRequestList.get(position);
         holder.phoneTextView.setText(perfumeRequest.getPhoneNumber());
         holder.perfumeTextView.setText(perfumeRequest.getPerfume().getFragranceFamily().getPerfume());
-        holder.priceTextView.setText(String.valueOf(perfumeRequest.getPerfume().getPrice()));
+        holder.priceTextView.setText(String.format(Locale.US,"%.2f", perfumeRequest.getPerfume().getPrice()));
         holder.content.setOnClickListener(v -> clickListener.onPerfumeRequestClicked(perfumeRequest));
     }
 

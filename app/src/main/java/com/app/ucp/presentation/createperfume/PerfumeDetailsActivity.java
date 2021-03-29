@@ -62,11 +62,11 @@ public class PerfumeDetailsActivity extends AppCompatActivity {
         baseNoteValueTv.setText(String.format(Locale.US, "Base: %d%%", perfume.getNoteConcentration().getBaseNote()));
         categoryTv.setText(perfume.getFragranceFamily().getCategory());
         perfumeTv.setText(perfume.getFragranceFamily().getPerfume());
-        priceTv.setText(String.valueOf(perfume.getPrice()));
+        priceTv.setText(String.format(Locale.US, "%.2f", perfume.getPrice()));
 
         Picasso.with(this)
                 .load(perfume.getBottleShape().getImageUrl())
-                .placeholder(R.drawable.logo_transparent)
+                .placeholder(R.drawable.launcher_logo_transparent)
                 .into(perfumeBottleImage);
     }
 

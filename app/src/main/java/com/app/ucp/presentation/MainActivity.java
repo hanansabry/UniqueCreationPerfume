@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.newbieCardView)
     public void onNewBieClicked() {
+        FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(this, NewBieActivity.class));
     }
 

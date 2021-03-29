@@ -26,6 +26,7 @@ public class AddBottlesActivity extends AppCompatActivity implements IPickResult
     @BindView(R.id.priceRateEditText)
     EditText priceRateEditText;
     private AddBottleShapeViewModel addBottleShapeViewModel;
+    private String imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class AddBottlesActivity extends AppCompatActivity implements IPickResult
         if (image.isEmpty() || price.isEmpty()) {
             Toast.makeText(this, "You must enter all values..", Toast.LENGTH_SHORT).show();
         } else {
-            BottleShape bottleShape = new BottleShape(image, Integer.parseInt(price));
+            BottleShape bottleShape = new BottleShape(imageUri, Integer.parseInt(price));
             addBottleShapeViewModel.addBottleShape(bottleShape);
         }
     }
@@ -69,7 +70,8 @@ public class AddBottlesActivity extends AppCompatActivity implements IPickResult
     @Override
     public void onPickResult(PickResult r) {
         if (r.getError() == null) {
-            imageEditText.setText(r.getUri().toString());
+            imageEditText.setText(r.getPath());
+            imageUri = r.getUri().toString();
         } else {
             //Handle possible errors
             Toast.makeText(this, r.getError().getMessage(), Toast.LENGTH_LONG).show();

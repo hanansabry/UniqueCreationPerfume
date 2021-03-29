@@ -44,7 +44,7 @@ public class BottleShapesAdapter extends RecyclerView.Adapter<BottleShapesAdapte
         BottleShape bottleShape = bottleShapeList.get(position);
         Picasso.with(holder.itemView.getContext())
                 .load(bottleShape.getImageUrl())
-                .placeholder(R.drawable.logo_transparent)
+                .placeholder(R.drawable.launcher_logo_transparent)
                 .into(holder.bottleShapeImageView);
 
         holder.bottleShapeRadioButton.setChecked(position == lastCheckedPosition);

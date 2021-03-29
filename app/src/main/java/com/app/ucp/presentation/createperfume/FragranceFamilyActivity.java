@@ -86,6 +86,7 @@ public class FragranceFamilyActivity extends AppCompatActivity {
     }
 
     private void setCategoriesSpinner(List<String> categories) {
+        fragranceFamily = null;
         ArrayAdapter<String> categoriesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item);
         categoriesAdapter.addAll(categories);
         categorySpinner.setAdapter(categoriesAdapter);
@@ -104,6 +105,7 @@ public class FragranceFamilyActivity extends AppCompatActivity {
     }
 
     private void setPerfumesSpinner(List<String> perfumes) {
+        fragranceFamily = null;
         ArrayAdapter<String> perfumesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item);
         perfumesAdapter.addAll(perfumes);
         perfumeSpinner.setAdapter(perfumesAdapter);
@@ -128,10 +130,14 @@ public class FragranceFamilyActivity extends AppCompatActivity {
 
     @OnClick(R.id.nextBtn)
     public void onNextClicked() {
-        perfume.setFragranceFamily(fragranceFamily);
-        perfume.updatePrice(Double.parseDouble(priceRateEditText.getText().toString()));
-        Intent intent = new Intent(this, BottleShapeActivity.class);
-        intent.putExtra(Constants.PERFUME, perfumeHelper.convertObjToJson(perfume));
-        startActivity(intent);
+        if (fragranceFamily == null) {
+            Toast.makeText(this, "You must select a fragrance family..", Toast.LENGTH_SHORT).show();
+        } else {
+            perfume.setFragranceFamily(fragranceFamily);
+            perfume.updatePrice(Double.parseDouble(priceRateEditText.getText().toString()));
+            Intent intent = new Intent(this, BottleShapeActivity.class);
+            intent.putExtra(Constants.PERFUME, perfumeHelper.convertObjToJson(perfume));
+            startActivity(intent);
+        }
     }
 }

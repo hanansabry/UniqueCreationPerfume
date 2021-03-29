@@ -2,24 +2,43 @@ package com.app.ucp.domain;
 
 import com.app.ucp.data.BottleSizeRepository;
 import com.app.ucp.model.BottleSize;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 public class BottleSizesRepositoryImpl implements BottleSizeRepository {
+    
+    private final DatabaseReference mDatabase;
+
+    public BottleSizesRepositoryImpl() {
+        mDatabase = FirebaseDatabase.getInstance().getReference("bottle-size");
+    }
+
     @Override
     public void retrieveBottleSizes(MutableLiveData<List<BottleSize>> bottleSizeLiveData) {
-        BottleSize size1 = new BottleSize("50ml", 1);
-        BottleSize size2 = new BottleSize("100ml", 2);
-        BottleSize size3 = new BottleSize("150ml", 3);
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<BottleSize> bottleSizes = new ArrayList<>();
+                for (DataSnapshot sizeSnapshot : snapshot.getChildren()) {
+                    BottleSize bottleSize = sizeSnapshot.getValue(BottleSize.class);
+                    bottleSizes.add(bottleSize);
+                }
+                bottleSizeLiveData.setValue(bottleSizes);
+            }
 
-        List<BottleSize> bottleSizeList = new ArrayList<>();
-        bottleSizeList.add(size1);
-        bottleSizeList.add(size2);
-        bottleSizeList.add(size3);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        bottleSizeLiveData.setValue(bottleSizeList);
+            }
+        });
     }
 }
