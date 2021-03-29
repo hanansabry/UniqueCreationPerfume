@@ -18,7 +18,7 @@
         <activity android:name=".presentation.createperfume.BottleShapeActivity" />
         <activity android:name=".presentation.createperfume.FragranceFamilyActivity" />
         <activity android:name=".presentation.createperfume.NoteConcentrationActivity" />
-        <activity android:name=".presentation.createperfume.FragranceConcentration" />
+        <activity android:name=".presentation.createperfume.FragranceConcentrationActivity" />
         <activity android:name=".presentation.newbie.NewBieActivity" />
         <activity android:name=".presentation.admin.LoginActivity" />
         <activity android:name=".presentation.MainActivity" />

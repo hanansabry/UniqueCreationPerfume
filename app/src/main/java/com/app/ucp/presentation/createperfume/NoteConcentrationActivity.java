@@ -1,20 +1,26 @@
 package com.app.ucp.presentation.createperfume;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.app.ucp.Constants;
+import com.app.ucp.PerfumeHelper;
+import com.app.ucp.R;
+import com.app.ucp.model.NoteConcentration;
+import com.app.ucp.model.Perfume;
+import com.google.android.material.slider.Slider;
+
+import java.util.Locale;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import com.app.ucp.R;
-import com.google.android.material.slider.Slider;
-
-import java.util.Locale;
 
 public class NoteConcentrationActivity extends AppCompatActivity {
 
@@ -38,6 +44,8 @@ public class NoteConcentrationActivity extends AppCompatActivity {
     private boolean topValueIsChanging;
     private boolean middleValueIsChanging;
     private boolean baseValueIsChanging;
+    private Perfume perfume;
+    private PerfumeHelper perfumeHelper = new PerfumeHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +53,17 @@ public class NoteConcentrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_note_concentration);
         ButterKnife.bind(this);
 
-        priceRateEditText.setText(String.format(Locale.US, "%.0f", getPreviousPriceRate()));
+        String perfumeJson = getIntent().getExtras().getString(Constants.PERFUME);
+        perfume = perfumeHelper.convertJsonToObj(perfumeJson);
+        Toast.makeText(this, "Current Price rate: " + perfume.getPrice(), Toast.LENGTH_SHORT).show();
+        priceRateEditText.setText(String.format(Locale.US, "%.2f", getPreviousPriceRate()));
 
         topNoteSlider.addOnChangeListener(new Slider.OnChangeListener() {
             @Override
             public synchronized void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
                 while (topNoteSlider.getValue() + middleNoteSlider.getValue() + baseNoteSlider.getValue() > HUNDRED_PERCENT
-                                && !middleValueIsChanging && !baseValueIsChanging) {
-                    if (middleNoteSlider.getValue() > 0 ) {
+                        && !middleValueIsChanging && !baseValueIsChanging) {
+                    if (middleNoteSlider.getValue() > 0) {
                         middleNoteSlider.setValue(middleNoteSlider.getValue() - 1);
                     }
                     if (baseNoteSlider.getValue() > 0) {
@@ -71,7 +82,7 @@ public class NoteConcentrationActivity extends AppCompatActivity {
             public synchronized void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
                 while (topNoteSlider.getValue() + middleNoteSlider.getValue() + baseNoteSlider.getValue() > HUNDRED_PERCENT
                         && !topValueIsChanging && !baseValueIsChanging) {
-                    if (topNoteSlider.getValue() > 0 ) {
+                    if (topNoteSlider.getValue() > 0) {
                         topNoteSlider.setValue(topNoteSlider.getValue() - 1);
                     }
                     if (baseNoteSlider.getValue() > 0) {
@@ -90,7 +101,7 @@ public class NoteConcentrationActivity extends AppCompatActivity {
             public synchronized void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
                 while (topNoteSlider.getValue() + middleNoteSlider.getValue() + baseNoteSlider.getValue() > HUNDRED_PERCENT
                         && !topValueIsChanging && !middleValueIsChanging) {
-                    if (topNoteSlider.getValue() > 0 ) {
+                    if (topNoteSlider.getValue() > 0) {
                         topNoteSlider.setValue(topNoteSlider.getValue() - 1);
                     }
                     if (middleNoteSlider.getValue() > 0) {
@@ -107,13 +118,15 @@ public class NoteConcentrationActivity extends AppCompatActivity {
     }
 
     private double getPreviousPriceRate() {
-        return 5;
+        return perfume.getPrice();
     }
 
     private double getPriceRate() {
-        return (topNoteSlider.getValue()/100) * 1
-                + (middleNoteSlider.getValue()/100) * 2
-                + (baseNoteSlider.getValue()/100) * 3;
+        double priceRate = (topNoteSlider.getValue() / 100) * NoteConcentration.NotePriceRate.TOP.getRate()
+                + (middleNoteSlider.getValue() / 100) * NoteConcentration.NotePriceRate.MIDDLE.getRate()
+                + (baseNoteSlider.getValue() / 100) * NoteConcentration.NotePriceRate.BASE.getRate();
+        Log.d("NOTE PRICE", priceRate + "");
+        return priceRate;
     }
 
     private void setPriceRate() {
@@ -131,6 +144,19 @@ public class NoteConcentrationActivity extends AppCompatActivity {
 
     @OnClick(R.id.nextBtn)
     public void onNextClicked() {
-        startActivity(new Intent(this, FragranceFamilyActivity.class));
+        if (topNoteSlider.getValue() + middleNoteSlider.getValue() + baseNoteSlider.getValue() < HUNDRED_PERCENT) {
+            Toast.makeText(this, "Total values of Top, Middle and Base notes must be equal 100", Toast.LENGTH_SHORT).show();
+        } else {
+            NoteConcentration noteConcentration = new NoteConcentration();
+            noteConcentration.setTopNote((int) topNoteSlider.getValue());
+            noteConcentration.setMiddleNote((int) middleNoteSlider.getValue());
+            noteConcentration.setBaseNote((int) baseNoteSlider.getValue());
+            perfume.setNoteConcentration(noteConcentration);
+
+            perfume.updatePrice(Double.parseDouble(priceRateEditText.getText().toString()));
+            Intent intent = new Intent(this, FragranceFamilyActivity.class);
+            intent.putExtra(Constants.PERFUME, perfumeHelper.convertObjToJson(perfume));
+            startActivity(intent);
+        }
     }
 }

@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.app.ucp.R;
-import com.app.ucp.presentation.createperfume.FragranceConcentration;
+import com.app.ucp.presentation.createperfume.FragranceConcentrationActivity;
 
 public class AdminControlActivity extends AppCompatActivity {
 
@@ -26,7 +26,7 @@ public class AdminControlActivity extends AppCompatActivity {
 
     @OnClick(R.id.createPerfumeCardView)
     public void onCreatePerfumeClicked() {
-        startActivity(new Intent(this, FragranceConcentration.class));
+        startActivity(new Intent(this, FragranceConcentrationActivity.class));
     }
 
     @OnClick(R.id.displayRequestCardView)

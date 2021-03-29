@@ -46,12 +46,13 @@
         app:layout_constraintTop_toBottomOf="@id/logoImageView">
 
         <EditText
+            android:id="@+id/phoneNumberEditText"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:background="@drawable/corner_white"
             android:hint="Search for your perfume.."
-            android:inputType="text"
+            android:inputType="phone"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:textColor="@color/colorAccent"
@@ -59,6 +60,7 @@
             android:textSize="14sp" />
 
         <Button
+            android:id="@+id/searchButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="-64dp"

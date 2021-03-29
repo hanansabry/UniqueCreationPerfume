@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".presentation.createperfume.FragranceConcentration">
+    tools:context=".presentation.createperfume.FragranceConcentrationActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,7 +66,7 @@
             android:id="@+id/bottleShapeRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"/>
 
@@ -89,7 +89,7 @@
                 android:layout_marginEnd="16dp"/>
 
             <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/categorySpinner"
+                android:id="@+id/sizeSpinner"
                 android:layout_width="120dp"
                 android:layout_height="50dp"
                 android:padding="8dp"
