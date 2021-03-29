@@ -49,7 +49,7 @@ public class PerfumeDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_perfume_details);
         ButterKnife.bind(this);
 
-        if (getIntent().getExtras().get(Constants.SEARCH) != null) {
+        if (getIntent().getExtras().get(Constants.SHOW_PAY) != null) {
             payBtn.setVisibility(View.GONE);
         }
         String perfumeJson = getIntent().getExtras().getString(Constants.PERFUME);

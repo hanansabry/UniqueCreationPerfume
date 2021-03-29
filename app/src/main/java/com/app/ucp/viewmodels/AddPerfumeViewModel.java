@@ -3,6 +3,7 @@ package com.app.ucp.viewmodels;
 import com.app.ucp.Injection;
 import com.app.ucp.domain.usecases.AddPerfumeUseCase;
 import com.app.ucp.model.PerfumeRequest;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -21,7 +22,7 @@ public class AddPerfumeViewModel extends ViewModel {
     }
 
     public boolean isAdmin() {
-        return false;
+        return FirebaseAuth.getInstance().getCurrentUser() != null;
     }
 
     public MutableLiveData<Boolean> getSuccess() {

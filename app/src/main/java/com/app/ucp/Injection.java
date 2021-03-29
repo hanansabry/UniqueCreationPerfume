@@ -1,6 +1,7 @@
 package com.app.ucp;
 
 import com.app.ucp.data.AddPerfumeRepository;
+import com.app.ucp.data.AuthenticationRepository;
 import com.app.ucp.data.BottleShapeRepository;
 import com.app.ucp.data.BottleSizeRepository;
 import com.app.ucp.data.CategoryRepository;
@@ -8,13 +9,19 @@ import com.app.ucp.data.FragranceConcentrationRepository;
 import com.app.ucp.data.FragranceFamilyRepository;
 import com.app.ucp.data.PerfumeSearchRepository;
 import com.app.ucp.domain.AddPerfumeRepositoryImpl;
+import com.app.ucp.domain.AuthenticationRepositoryImpl;
 import com.app.ucp.domain.BottleShapeRepositoryImpl;
 import com.app.ucp.domain.BottleSizesRepositoryImpl;
 import com.app.ucp.domain.CategoryRepositoryImpl;
 import com.app.ucp.domain.FragranceConcentrationRepositoryImpl;
 import com.app.ucp.domain.FragranceFamilyRepositoryImpl;
 import com.app.ucp.domain.PerfumeSearchRepositoryImpl;
+import com.app.ucp.domain.usecases.AddBottleShapeUseCase;
+import com.app.ucp.domain.usecases.AddNewFamilyUseCase;
 import com.app.ucp.domain.usecases.AddPerfumeUseCase;
+import com.app.ucp.domain.usecases.GetPerfumeRequestsUseCase;
+import com.app.ucp.domain.usecases.GetReadyMadePerfumesUseCase;
+import com.app.ucp.domain.usecases.LoginUseCase;
 import com.app.ucp.domain.usecases.PerfumeSearchUseCase;
 import com.app.ucp.domain.usecases.RetrieveBottleShapesUseCase;
 import com.app.ucp.domain.usecases.RetrieveCategoriesUseCase;
@@ -82,5 +89,29 @@ public class Injection {
 
     private static PerfumeSearchRepository getPerfumeSearchRepository() {
         return new PerfumeSearchRepositoryImpl();
+    }
+
+    public static GetReadyMadePerfumesUseCase getReadyMadePerfumesUseCase() {
+        return new GetReadyMadePerfumesUseCase(getPerfumeSearchRepository());
+    }
+
+    public static LoginUseCase getLoginUseCase() {
+        return new LoginUseCase(getAuthenticationRepository());
+    }
+
+    private static AuthenticationRepository getAuthenticationRepository() {
+        return new AuthenticationRepositoryImpl();
+    }
+
+    public static GetPerfumeRequestsUseCase getPerfumeRequestUseCase() {
+        return new GetPerfumeRequestsUseCase(getPerfumeSearchRepository());
+    }
+
+    public static AddNewFamilyUseCase getAddNewFamilyUseCase() {
+        return new AddNewFamilyUseCase(getFragranceFamilyRepository());
+    }
+
+    public static AddBottleShapeUseCase getAddBottleShapeUseCase() {
+        return new AddBottleShapeUseCase(getBottleShapeRepoistory());
     }
 }

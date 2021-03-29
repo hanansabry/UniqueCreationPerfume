@@ -8,18 +8,19 @@ import butterknife.OnClick;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.app.ucp.Constants;
 import com.app.ucp.PerfumeHelper;
 import com.app.ucp.R;
+import com.app.ucp.presentation.admin.AdminControlActivity;
 import com.app.ucp.presentation.admin.LoginActivity;
 import com.app.ucp.presentation.createperfume.FragranceConcentrationActivity;
 import com.app.ucp.presentation.createperfume.PerfumeDetailsActivity;
 import com.app.ucp.presentation.newbie.NewBieActivity;
 import com.app.ucp.viewmodels.PerfumeSearchViewModel;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 if (perfumeRequest != null) {
                     Intent intent = new Intent(MainActivity.this, PerfumeDetailsActivity.class);
                     intent.putExtra(Constants.PERFUME, perfumeHelper.convertObjToJson(perfumeRequest.getPerfume()));
-                    intent.putExtra(Constants.SEARCH, true);
+                    intent.putExtra(Constants.SHOW_PAY, false);
                     startActivity(intent);
                 } else {
                     Toast.makeText(this, "Can't find results..", Toast.LENGTH_SHORT).show();
@@ -57,7 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.loginBtn)
     public void onLoginClicked() {
-        startActivity(new Intent(this, LoginActivity.class));
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            startActivity(new Intent(this, AdminControlActivity.class));
+        } else {
+            startActivity(new Intent(this, LoginActivity.class));
+        }
     }
 
     @OnClick(R.id.newbieCardView)
@@ -67,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.expertCardView)
     public void onExpertClicked() {
+        FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(this, FragranceConcentrationActivity.class));
     }
 }

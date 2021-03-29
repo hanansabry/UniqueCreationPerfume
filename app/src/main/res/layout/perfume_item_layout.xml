@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/perfumeLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -20,6 +21,7 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/perfumeNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Perfume Name"
@@ -41,5 +43,11 @@
         app:tint="@color/colorAccent"
         android:fontFamily="@font/libre_baskerville"
         android:layout_gravity="center"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height=".2dp"
+        android:background="@color/colorAccent"
+        android:layout_below="@id/bulletView"/>
 
 </RelativeLayout>
